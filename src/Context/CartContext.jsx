@@ -8,39 +8,35 @@ export const CartFunction = () => {
 
 const CartContext = (prop) => {
   const ProductsData = [
-    { id: "1", name: "Product-1", price: "100" },
-    { id: "2", name: "Product-2", price: "200" },
-    { id: "3", name: "Product-3", price: "300" },
+    { id: 1, name: "Product-1", price: 100, quantity: 0 },
+    { id: 2, name: "Product-2", price: 200, quantity: 0 },
+    { id: 3, name: "Product-3", price: 300, quantity: 0 },
   ];
 
   const [totalPrice, setTotalPrice] = useState(0);
-  const [count, setCount] = useState(0);
-  const incFunction = (id) => {
-    ProductsData.filter((ele) => {
-      if (ele.id == id) {
-        console.log(count, "Arya");
-       return setCount((value) => value + 1);
+  const [cartedItem, setCartedItem] = useState([]);
+  // function manageCartedItem(item, quantity) {
 
+  function manageCartedItem(item, quantity) {
+    setCartedItem((prevValue) => {
+      const existingItem = prevValue.find((ele) => ele.id === item.id);
+  
+      if (existingItem) {
+        const updatedCart = prevValue.filter((ele) => ele.id !== item.id);
+        return [...updatedCart, { ...item, quantity }];
+      } else {
+        return [...prevValue, { ...item, quantity }];
       }
-      return ele;
+      
     });
-
-  };
-  const decFunction = () => {
-    console.log(count, "Dec");
-    if (count >= 1) {
-      setCount((value) => value - 1);
-    }
-  };
-
+  }
   const functionObject = {
     totalPrice,
     setTotalPrice,
-    incFunction,
-    decFunction,
-    count,
-    setCount,
     ProductsData,
+    cartedItem,
+    setCartedItem,
+    manageCartedItem,
   };
   return (
     <CartContextController.Provider value={functionObject}>

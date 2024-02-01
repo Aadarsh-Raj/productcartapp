@@ -1,5 +1,6 @@
 import React from 'react'
 import './Style/cartedcontainer.css'
+import CartedItem from './CartedItem'
 const CartedContainer = () => {
 
   
@@ -7,9 +8,7 @@ const CartedContainer = () => {
     <>
     <div className="carted-container">
         <h2>Cart</h2>
-        <p>Product1 * 1</p>
-        <p>Product2 * 1</p>
-        <p>Total</p>
+        <CartedItem />
     </div>
     </>
   )

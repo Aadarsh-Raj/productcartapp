@@ -4,7 +4,7 @@ const Button = (prop) => {
 
   return (
         <>
-            <button className={prop.cName} onClick={prop.clickEvent}>
+            <button className={prop.cName} onClick={(value)=>prop.clickEvent(value)}>
                 {
                     prop.sign
                 }

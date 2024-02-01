@@ -1,10 +1,24 @@
-import React, {useReducer} from 'react'
+import React, {useReducer, useState} from 'react'
 import Button from './Button'
 import './Style/productcartitem.css'
 import { CartFunction } from '../Context/CartContext'
 const ProductCartItem = (prop) => {
-    const cartCtx = CartFunction();
-    console.log(cartCtx);
+    const  cartCtx = CartFunction();
+const [quantity, setQuantity] = useState(0);
+
+function incQuan (item){
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    cartCtx.manageCartedItem(item, newQuantity);
+
+}
+function decQuan (item){
+    let newQuantity = 0;
+    if(quantity >= 1){ newQuantity = quantity - 1;}
+    setQuantity((prevValue) => prevValue >= 1 ? prevValue - 1 : prevValue);
+    cartCtx.manageCartedItem(item, newQuantity);
+}
+
 //     const reducer = (state, action)=>{
 //         switch (action.type){
 //             case 'incBtn':
@@ -29,9 +43,9 @@ const ProductCartItem = (prop) => {
             {prop.data.price}
         </div>
         <div className="product-number-button">
-            <Button cName="decBtn" sign="-" clickEvent={()=>cartCtx.decFunction()}/>
-                {cartCtx.count}
-            <Button cName="incBtn" sign="+" clickEvent={()=>cartCtx.incFunction(prop.prodId)}/>
+            <Button cName="decBtn" sign="-" clickEvent={()=> decQuan(prop.data, quantity)}/>
+                {quantity}
+            <Button cName="incBtn" sign="+" clickEvent={()=>incQuan(prop.data, quantity)}/>
             
         </div>
     </div>

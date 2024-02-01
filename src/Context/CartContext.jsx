@@ -18,17 +18,24 @@ const CartContext = (prop) => {
   // function manageCartedItem(item, quantity) {
 
   function manageCartedItem(item, quantity) {
+
     setCartedItem((prevValue) => {
       const existingItem = prevValue.find((ele) => ele.id === item.id);
   
       if (existingItem) {
         const updatedCart = prevValue.filter((ele) => ele.id !== item.id);
+       
         return [...updatedCart, { ...item, quantity }];
       } else {
         return [...prevValue, { ...item, quantity }];
       }
-      
+
     });
+  }
+  function updateTotalPrice(){
+    let priceSum = 0;
+     cartedItem.map((ele)=>priceSum+=(ele.price * ele.quantity));
+    return priceSum;
   }
   const functionObject = {
     totalPrice,
@@ -37,6 +44,7 @@ const CartContext = (prop) => {
     cartedItem,
     setCartedItem,
     manageCartedItem,
+    updateTotalPrice
   };
   return (
     <CartContextController.Provider value={functionObject}>
